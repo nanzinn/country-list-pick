@@ -9,7 +9,7 @@ import 'country_list_pick.dart';
 
 class SelectionList extends StatefulWidget {
   SelectionList(this.elements, this.initialSelection,
-      {Key key, this.appBar, this.theme, this.countryBuilder})
+      {Key key, this.appBar, this.theme, this.countryBuilder,this.onSelected})
       : super(key: key);
 
   final PreferredSizeWidget appBar;
