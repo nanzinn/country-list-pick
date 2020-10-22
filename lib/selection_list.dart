@@ -17,6 +17,7 @@ class SelectionList extends StatefulWidget {
   final CountryCode initialSelection;
   final CountryTheme theme;
   final Widget Function(BuildContext context, CountryCode) countryBuilder;
+  final Function(CountryCode) onSelected;
 
   @override
   _SelectionListState createState() => _SelectionListState();
@@ -28,7 +29,6 @@ class _SelectionListState extends State<SelectionList> {
 
   var posSelected = 0;
   var height = 0.0;
-  var _itemsizeheight = 50.0;
   bool isShow = true;
 
   @override
@@ -42,7 +42,7 @@ class _SelectionListState extends State<SelectionList> {
   }
 
   void _sendDataBack(BuildContext context, CountryCode initialSelection) {
-    Navigator.pop(context, initialSelection);
+    widget?.onSelected(initialSelection);
   }
 
 
@@ -62,79 +62,75 @@ class _SelectionListState extends State<SelectionList> {
       body: Container(
         color: Color(0xfff4f4f4),
         child: LayoutBuilder(builder: (context, contrainsts) {
-          return Stack(
-            children: <Widget>[
-              ListView(
-                children: [
-                  // SliverToBoxAdapter(
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(15.0),
-                  //         child: Text(widget.theme?.searchText ?? 'SEARCH'),
-                  //       ),
-                  //       Container(
-                  //         color: Colors.white,
-                  //         child: TextField(
-                  //           controller: _controller,
-                  //           decoration: InputDecoration(
-                  //             border: InputBorder.none,
-                  //             focusedBorder: InputBorder.none,
-                  //             enabledBorder: InputBorder.none,
-                  //             errorBorder: InputBorder.none,
-                  //             disabledBorder: InputBorder.none,
-                  //             contentPadding: EdgeInsets.only(
-                  //                 left: 15, bottom: 0, top: 0, right: 15),
-                  //             hintText:
-                  //                 widget.theme?.searchHintText ?? "Search...",
-                  //           ),
-                  //           onChanged: _filterElements,
-                  //         ),
-                  //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(15.0),
-                  //         child:
-                  //             Text(widget.theme?.lastPickText ?? 'LAST PICK'),
-                  //       ),
-                  //       Container(
-                  //         color: Colors.white,
-                  //         child: Material(
-                  //           color: Colors.transparent,
-                  //           child: ListTile(
-                  //             leading: Image.asset(
-                  //               widget.initialSelection.flagUri,
-                  //               package: 'country_list_pick',
-                  //               width: 32.0,
-                  //             ),
-                  //             title: Text(widget.initialSelection.name),
-                  //             trailing: Padding(
-                  //               padding: const EdgeInsets.only(right: 20.0),
-                  //               child: Icon(Icons.check, color: Colors.green),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       SizedBox(height: 15),
-                  //     ],
-                  //   ),
-                  // ),
-                  ...countries.map((e) {
-                    return widget.countryBuilder != null
-                        ? widget.countryBuilder(
-                        context, e)
-                        : getListCountry(e);
-                  }).toList()
-                  // SliverList(
-                  //   delegate: SliverChildBuilderDelegate((context, index) {
-                  //     return widget.countryBuilder != null
-                  //         ? widget.countryBuilder(
-                  //             context, countries.elementAt(index))
-                  //         : getListCountry(countries.elementAt(index));
-                  //   }, childCount: countries.length),
-                  // )
-                ],
-              ),
+          return ListView(
+            children: [
+              // SliverToBoxAdapter(
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(15.0),
+              //         child: Text(widget.theme?.searchText ?? 'SEARCH'),
+              //       ),
+              //       Container(
+              //         color: Colors.white,
+              //         child: TextField(
+              //           controller: _controller,
+              //           decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //             focusedBorder: InputBorder.none,
+              //             enabledBorder: InputBorder.none,
+              //             errorBorder: InputBorder.none,
+              //             disabledBorder: InputBorder.none,
+              //             contentPadding: EdgeInsets.only(
+              //                 left: 15, bottom: 0, top: 0, right: 15),
+              //             hintText:
+              //                 widget.theme?.searchHintText ?? "Search...",
+              //           ),
+              //           onChanged: _filterElements,
+              //         ),
+              //       ),
+              //       Padding(
+              //         padding: const EdgeInsets.all(15.0),
+              //         child:
+              //             Text(widget.theme?.lastPickText ?? 'LAST PICK'),
+              //       ),
+              //       Container(
+              //         color: Colors.white,
+              //         child: Material(
+              //           color: Colors.transparent,
+              //           child: ListTile(
+              //             leading: Image.asset(
+              //               widget.initialSelection.flagUri,
+              //               package: 'country_list_pick',
+              //               width: 32.0,
+              //             ),
+              //             title: Text(widget.initialSelection.name),
+              //             trailing: Padding(
+              //               padding: const EdgeInsets.only(right: 20.0),
+              //               child: Icon(Icons.check, color: Colors.green),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       SizedBox(height: 15),
+              //     ],
+              //   ),
+              // ),
+              ...countries.map((e) {
+                return widget.countryBuilder != null
+                    ? widget.countryBuilder(
+                    context, e)
+                    : getListCountry(e);
+              }).toList()
+              // SliverList(
+              //   delegate: SliverChildBuilderDelegate((context, index) {
+              //     return widget.countryBuilder != null
+              //         ? widget.countryBuilder(
+              //             context, countries.elementAt(index))
+              //         : getListCountry(countries.elementAt(index));
+              //   }, childCount: countries.length),
+              // )
             ],
           );
         }),
