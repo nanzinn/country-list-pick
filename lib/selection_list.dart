@@ -92,7 +92,7 @@ class _SelectionListState extends State<SelectionList> {
       systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
       statusBarBrightness:
-          Platform.isAndroid ? Brightness.dark : Brightness.light,
+      Platform.isAndroid ? Brightness.dark : Brightness.light,
     ));
     height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -105,71 +105,76 @@ class _SelectionListState extends State<SelectionList> {
           _sizeheightcontainer = (contrainsts.biggest.height);
           return Stack(
             children: <Widget>[
-              CustomScrollView(
+              ListView(
                 controller: _controllerScroll,
-                physics: const AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(widget.theme?.searchText ?? 'SEARCH'),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          child: TextField(
-                            controller: _controller,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              contentPadding: EdgeInsets.only(
-                                  left: 15, bottom: 0, top: 0, right: 15),
-                              hintText:
-                                  widget.theme?.searchHintText ?? "Search...",
-                            ),
-                            onChanged: _filterElements,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child:
-                              Text(widget.theme?.lastPickText ?? 'LAST PICK'),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: ListTile(
-                              leading: Image.asset(
-                                widget.initialSelection.flagUri,
-                                package: 'country_list_pick',
-                                width: 32.0,
-                              ),
-                              title: Text(widget.initialSelection.name),
-                              trailing: Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Icon(Icons.check, color: Colors.green),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 15),
-                      ],
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return widget.countryBuilder != null
-                          ? widget.countryBuilder(
-                              context, countries.elementAt(index))
-                          : getListCountry(countries.elementAt(index));
-                    }, childCount: countries.length),
-                  )
+                children: [
+                  // SliverToBoxAdapter(
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Padding(
+                  //         padding: const EdgeInsets.all(15.0),
+                  //         child: Text(widget.theme?.searchText ?? 'SEARCH'),
+                  //       ),
+                  //       Container(
+                  //         color: Colors.white,
+                  //         child: TextField(
+                  //           controller: _controller,
+                  //           decoration: InputDecoration(
+                  //             border: InputBorder.none,
+                  //             focusedBorder: InputBorder.none,
+                  //             enabledBorder: InputBorder.none,
+                  //             errorBorder: InputBorder.none,
+                  //             disabledBorder: InputBorder.none,
+                  //             contentPadding: EdgeInsets.only(
+                  //                 left: 15, bottom: 0, top: 0, right: 15),
+                  //             hintText:
+                  //                 widget.theme?.searchHintText ?? "Search...",
+                  //           ),
+                  //           onChanged: _filterElements,
+                  //         ),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.all(15.0),
+                  //         child:
+                  //             Text(widget.theme?.lastPickText ?? 'LAST PICK'),
+                  //       ),
+                  //       Container(
+                  //         color: Colors.white,
+                  //         child: Material(
+                  //           color: Colors.transparent,
+                  //           child: ListTile(
+                  //             leading: Image.asset(
+                  //               widget.initialSelection.flagUri,
+                  //               package: 'country_list_pick',
+                  //               width: 32.0,
+                  //             ),
+                  //             title: Text(widget.initialSelection.name),
+                  //             trailing: Padding(
+                  //               padding: const EdgeInsets.only(right: 20.0),
+                  //               child: Icon(Icons.check, color: Colors.green),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       SizedBox(height: 15),
+                  //     ],
+                  //   ),
+                  // ),
+                  ...countries.map((e) {
+                    return widget.countryBuilder != null
+                        ? widget.countryBuilder(
+                        context, countries.elementAt(index))
+                        : getListCountry(countries.elementAt(index));
+                  }).toList()
+                  // SliverList(
+                  //   delegate: SliverChildBuilderDelegate((context, index) {
+                  //     return widget.countryBuilder != null
+                  //         ? widget.countryBuilder(
+                  //             context, countries.elementAt(index))
+                  //         : getListCountry(countries.elementAt(index));
+                  //   }, childCount: countries.length),
+                  // )
                 ],
               ),
               if (isShow == true)
@@ -184,9 +189,9 @@ class _SelectionListState extends State<SelectionList> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: []..addAll(
-                            List.generate(_alphabet.length,
-                                (index) => _getAlphabetItem(index)),
-                          ),
+                          List.generate(_alphabet.length,
+                                  (index) => _getAlphabetItem(index)),
+                        ),
                       ),
                     ),
                   ),
@@ -229,7 +234,7 @@ class _SelectionListState extends State<SelectionList> {
             if (_text != _oldtext) {
               for (var i = 0; i < countries.length; i++) {
                 if (_text.toString().compareTo(
-                        countries[i].name.toString().toUpperCase()[0]) ==
+                    countries[i].name.toString().toUpperCase()[0]) ==
                     0) {
                   _controllerScroll.jumpTo((i * _itemsizeheight) + 10);
                   break;
@@ -254,14 +259,14 @@ class _SelectionListState extends State<SelectionList> {
             textAlign: TextAlign.center,
             style: (index == posSelected)
                 ? TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color:
-                        widget.theme?.alphabetSelectedTextColor ?? Colors.white)
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color:
+                widget.theme?.alphabetSelectedTextColor ?? Colors.white)
                 : TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: widget.theme?.alphabetTextColor ?? Colors.black),
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: widget.theme?.alphabetTextColor ?? Colors.black),
           ),
         ),
       ),
@@ -273,9 +278,9 @@ class _SelectionListState extends State<SelectionList> {
     setState(() {
       countries = widget.elements
           .where((e) =>
-              e.code.contains(s) ||
-              e.dialCode.contains(s) ||
-              e.name.toUpperCase().contains(s))
+      e.code.contains(s) ||
+          e.dialCode.contains(s) ||
+          e.name.toUpperCase().contains(s))
           .toList();
     });
   }
@@ -292,8 +297,8 @@ class _SelectionListState extends State<SelectionList> {
         if (_text != _oldtext) {
           for (var i = 0; i < countries.length; i++) {
             if (_text
-                    .toString()
-                    .compareTo(countries[i].name.toString().toUpperCase()[0]) ==
+                .toString()
+                .compareTo(countries[i].name.toString().toUpperCase()[0]) ==
                 0) {
               _controllerScroll.jumpTo((i * _itemsizeheight) + 15);
               break;
@@ -311,7 +316,7 @@ class _SelectionListState extends State<SelectionList> {
 
   _scrollListener() {
     int scrollPosition =
-        (_controllerScroll.position.pixels / _itemsizeheight).round();
+    (_controllerScroll.position.pixels / _itemsizeheight).round();
     if (scrollPosition < countries.length) {
       String countryName = countries.elementAt(scrollPosition).name;
       setState(() {
@@ -323,7 +328,7 @@ class _SelectionListState extends State<SelectionList> {
     if ((_controllerScroll.offset) >=
         (_controllerScroll.position.maxScrollExtent)) {}
     if (_controllerScroll.offset <=
-            _controllerScroll.position.minScrollExtent &&
+        _controllerScroll.position.minScrollExtent &&
         !_controllerScroll.position.outOfRange) {}
   }
 }
