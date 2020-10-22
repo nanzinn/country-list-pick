@@ -154,6 +154,7 @@ class _SelectionListState extends State<SelectionList> {
             package: 'country_list_pick',
             width: 30.0,
           ),
+          trailing: Icon(Icons.check_circle),
           title: Text(e.name),
           onTap: () {
             _sendDataBack(context, e);
