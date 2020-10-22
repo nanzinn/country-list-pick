@@ -164,8 +164,8 @@ class _SelectionListState extends State<SelectionList> {
                   ...countries.map((e) {
                     return widget.countryBuilder != null
                         ? widget.countryBuilder(
-                        context, countries.elementAt(index))
-                        : getListCountry(countries.elementAt(index));
+                        context, e)
+                        : getListCountry(e);
                   }).toList()
                   // SliverList(
                   //   delegate: SliverChildBuilderDelegate((context, index) {

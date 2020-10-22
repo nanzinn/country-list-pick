@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="468c5ca9-df20-4f55-9b95-a3a939de35ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/selection_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/selection_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,21 +44,38 @@
       <option name="presentableId" value="Default" />
       <updated>1600483626305</updated>
     </task>
+    <task id="LOCAL-00001" summary="Alterado Layout">
+      <created>1603396679745</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603396679745</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Alterado Layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Alterado Layout" />
   </component>
   <component name="WindowStateProjectService">
     <state x="123" y="247" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600484644986">
       <screen x="0" y="23" width="1920" height="1124" />
     </state>
     <state x="123" y="247" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1124@0.23.1920.1124" timestamp="1600484644986" />
-    <state x="248" y="100" key="CommitChangelistDialog2" timestamp="1600488956353">
-      <screen x="0" y="23" width="1920" height="1124" />
+    <state x="265" y="79" key="CommitChangelistDialog2" timestamp="1603396678479">
+      <screen x="0" y="0" width="2048" height="1152" />
     </state>
+    <state x="265" y="79" key="CommitChangelistDialog2/0.0.2048.1152@0.0.2048.1152" timestamp="1603396678479" />
     <state x="248" y="100" key="CommitChangelistDialog2/0.23.1920.1124@0.23.1920.1124" timestamp="1600488956353" />
     <state x="160" y="224" key="SettingsEditor" timestamp="1600484159641">
       <screen x="0" y="23" width="1920" height="1124" />
     </state>
     <state x="160" y="224" key="SettingsEditor/0.23.1920.1124@0.23.1920.1124" timestamp="1600484159641" />
+    <state x="380" y="305" key="Vcs.Push.Dialog.v2" timestamp="1603396681685">
+      <screen x="0" y="0" width="2048" height="1152" />
+    </state>
+    <state x="380" y="305" key="Vcs.Push.Dialog.v2/0.0.2048.1152@0.0.2048.1152" timestamp="1603396681685" />
     <state x="100" y="123" width="1117" height="924" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1600486921676">
       <screen x="0" y="23" width="1920" height="1124" />
     </state>
