@@ -24,19 +24,11 @@ class SelectionList extends StatefulWidget {
 
 class _SelectionListState extends State<SelectionList> {
   List countries;
-  final TextEditingController _controller = TextEditingController();
-  ScrollController _controllerScroll;
   var diff = 0.0;
 
   var posSelected = 0;
   var height = 0.0;
-  var _sizeheightcontainer;
-  var _heightscroller;
-  var _text;
-  var _oldtext;
   var _itemsizeheight = 50.0;
-  double _offsetContainer = 0.0;
-
   bool isShow = true;
 
   @override
@@ -45,9 +37,7 @@ class _SelectionListState extends State<SelectionList> {
     countries.sort((a, b) {
       return a.name.toString().compareTo(b.name.toString());
     });
-    _controllerScroll = ScrollController();
     //_controller.addListener(_scrollListener);
-    _controllerScroll.addListener(_scrollListener);
     super.initState();
   }
 
@@ -55,34 +45,6 @@ class _SelectionListState extends State<SelectionList> {
     Navigator.pop(context, initialSelection);
   }
 
-  List _alphabet = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -100,13 +62,9 @@ class _SelectionListState extends State<SelectionList> {
       body: Container(
         color: Color(0xfff4f4f4),
         child: LayoutBuilder(builder: (context, contrainsts) {
-          diff = height - contrainsts.biggest.height;
-          _heightscroller = (contrainsts.biggest.height) / _alphabet.length;
-          _sizeheightcontainer = (contrainsts.biggest.height);
           return Stack(
             children: <Widget>[
               ListView(
-                controller: _controllerScroll,
                 children: [
                   // SliverToBoxAdapter(
                   //   child: Column(
@@ -177,25 +135,6 @@ class _SelectionListState extends State<SelectionList> {
                   // )
                 ],
               ),
-              if (isShow == true)
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onVerticalDragUpdate: _onVerticalDragUpdate,
-                    onVerticalDragStart: _onVerticalDragStart,
-                    child: Container(
-                      height: 20.0 * 30,
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: []..addAll(
-                          List.generate(_alphabet.length,
-                                  (index) => _getAlphabetItem(index)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
             ],
           );
         }),
@@ -222,113 +161,5 @@ class _SelectionListState extends State<SelectionList> {
         ),
       ),
     );
-  }
-
-  _getAlphabetItem(int index) {
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            posSelected = index;
-            _text = _alphabet[posSelected];
-            if (_text != _oldtext) {
-              for (var i = 0; i < countries.length; i++) {
-                if (_text.toString().compareTo(
-                    countries[i].name.toString().toUpperCase()[0]) ==
-                    0) {
-                  _controllerScroll.jumpTo((i * _itemsizeheight) + 10);
-                  break;
-                }
-              }
-              _oldtext = _text;
-            }
-          });
-        },
-        child: Container(
-          width: 40,
-          height: 20,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: index == posSelected
-                ? widget.theme?.alphabetSelectedBackgroundColor ?? Colors.blue
-                : Colors.transparent,
-            shape: BoxShape.circle,
-          ),
-          child: Text(
-            _alphabet[index],
-            textAlign: TextAlign.center,
-            style: (index == posSelected)
-                ? TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color:
-                widget.theme?.alphabetSelectedTextColor ?? Colors.white)
-                : TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: widget.theme?.alphabetTextColor ?? Colors.black),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _filterElements(String s) {
-    s = s.toUpperCase();
-    setState(() {
-      countries = widget.elements
-          .where((e) =>
-      e.code.contains(s) ||
-          e.dialCode.contains(s) ||
-          e.name.toUpperCase().contains(s))
-          .toList();
-    });
-  }
-
-  void _onVerticalDragUpdate(DragUpdateDetails details) {
-    setState(() {
-      if ((_offsetContainer + details.delta.dy) >= 0 &&
-          (_offsetContainer + details.delta.dy) <=
-              (_sizeheightcontainer - _heightscroller)) {
-        _offsetContainer += details.delta.dy;
-        posSelected =
-            ((_offsetContainer / _heightscroller) % _alphabet.length).round();
-        _text = _alphabet[posSelected];
-        if (_text != _oldtext) {
-          for (var i = 0; i < countries.length; i++) {
-            if (_text
-                .toString()
-                .compareTo(countries[i].name.toString().toUpperCase()[0]) ==
-                0) {
-              _controllerScroll.jumpTo((i * _itemsizeheight) + 15);
-              break;
-            }
-          }
-          _oldtext = _text;
-        }
-      }
-    });
-  }
-
-  void _onVerticalDragStart(DragStartDetails details) {
-    _offsetContainer = details.globalPosition.dy - diff;
-  }
-
-  _scrollListener() {
-    int scrollPosition =
-    (_controllerScroll.position.pixels / _itemsizeheight).round();
-    if (scrollPosition < countries.length) {
-      String countryName = countries.elementAt(scrollPosition).name;
-      setState(() {
-        posSelected =
-            countryName[0].toUpperCase().codeUnitAt(0) - 'A'.codeUnitAt(0);
-      });
-    }
-
-    if ((_controllerScroll.offset) >=
-        (_controllerScroll.position.maxScrollExtent)) {}
-    if (_controllerScroll.offset <=
-        _controllerScroll.position.minScrollExtent &&
-        !_controllerScroll.position.outOfRange) {}
   }
 }
